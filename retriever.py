@@ -8,7 +8,6 @@ import sys
 from uuid import uuid4
 
 from dotenv import load_dotenv
-from fake_useragent import UserAgent
 from langchain.chains import RetrievalQA
 from langchain.retrievers.contextual_compression import \
     ContextualCompressionRetriever
@@ -62,9 +61,7 @@ def load_and_split_document(url: str) -> list[Document]:
     """
 
     # Read the Wep documents from 'url'
-    raw_documents = WebBaseLoader(url, header_template={
-      'User-Agent': UserAgent().chrome,
-        }).load()
+    raw_documents = WebBaseLoader(url).load()
 
     # Define chunking strategy
     text_splitter = TokenTextSplitter(chunk_size=512, chunk_overlap=24)
